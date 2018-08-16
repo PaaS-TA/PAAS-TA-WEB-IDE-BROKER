@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: paasta-web-ide
+  datasource:
+    url: jdbc:mysql://localhost:3306/portaldb_webide?autoReconnect=true&useUnicode=true&characterEncoding=utf8
+    username:
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: none
+      database: mysql
+      show-sql: true
+
+
+logging:
+  level:
+    ROOT:
+      org:
+        openpaas:
+          servicebroker:
+            controller: INFO
+        paasta:
+          servicebroker:
+            deliverypipeline:
+              service: INFO
+
+service:
+  dashboard:
+    url: http://115.68.47.171:8080/dashboard/[SUID]/
+
+
+paasta:
+  webide:
+        url: http://10.30.80.200:8080
+        username:
+        password:
+

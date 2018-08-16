@@ -1,0 +1,73 @@
+buildscript {
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+
+        maven { url "http://repo.spring.io/libs-snapshot" }
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+//apply plugin: 'war'
+
+ext {
+  springBootCfServiceBrokerVersion = "2.4.0"
+  springBootVersion = '1.5.2.RELEASE'
+  hibernateValidatorVersion = '5.1.0.Final'
+  jsonPathVersion = '0.9.1'
+}
+
+jar{
+    baseName = 'delivery-pipeline-service-broker'
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile files('libs/openpaas-service-java-broker.jar')
+//    compile(name: 'openpaas-service-java-broker')
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.apache.commons:commons-dbcp2")
+    compile('org.apache.tomcat.embed:tomcat-embed-jasper')
+    compile("org.springframework:spring-jdbc:4.0.0.M3")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("com.jayway.jsonpath:json-path")
+
+
+
+    runtime("mysql:mysql-connector-java:5.1.27")
+
+}
+
+apply plugin: 'jacoco'
+
+jacoco {
+	toolVersion = "0.7.9+"
+}
+
+test {
+    ignoreFailures=true
+    jacoco {
+        destinationFile = file("$buildDir/jacoco/jacoco-overall.exec")
+    }
+}

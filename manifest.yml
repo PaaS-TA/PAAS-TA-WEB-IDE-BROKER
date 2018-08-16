@@ -1,0 +1,6 @@
+---
+applications:
+- name: paas-ta-delivery-pipline-broker
+  memory: 512M
+  instances: 1
+  path: build/libs/paastaDevopsServiceBoker.war
