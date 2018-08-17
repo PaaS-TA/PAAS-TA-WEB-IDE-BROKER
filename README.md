@@ -1,6 +1,6 @@
-WEB IDE Service Broker for PaaS-TA
+WEB IDE Service Broker 
 ==================
-Web-Ide 서비스 브로커는 CaaS 서비스를 파스-타(PaaS-TA) 서비스로 제공합니다.
+Web-Ide 서비스 브로커
 
 ##### 가능한 명령 목록 (로컬 환경)
 
@@ -19,7 +19,7 @@ Web-Ide 서비스 브로커는 CaaS 서비스를 파스-타(PaaS-TA) 서비스�
 - Status Code : 200OK
 
 
-	
+
 	{
         "services": [
             {
