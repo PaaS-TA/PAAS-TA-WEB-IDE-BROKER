@@ -8,25 +8,25 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.10.RELEASE")
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-apply plugin: 'war'
+//apply plugin: 'jar'
 
 ext {
   springBootCfServiceBrokerVersion = "2.4.0"
-  springBootVersion = '1.5.2.RELEASE'
+  springBootVersion = '1.5.10.RELEASE'
   hibernateValidatorVersion = '5.1.0.Final'
   jsonPathVersion = '0.9.1'
 }
-//
-//jar{
-//    baseName = 'delivery-pipeline-service-broker'
-//}
+
+jar{
+    baseName = 'delivery-pipeline-service-broker'
+}
 
 repositories {
     flatDir {
@@ -50,13 +50,13 @@ dependencies {
     compile('org.apache.tomcat.embed:tomcat-embed-jasper')
     compile("org.springframework:spring-jdbc:4.0.0.M3")
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("com.jayway.jsonpath:json-path")
 
 
 
     runtime("mysql:mysql-connector-java:5.1.27")
 
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("com.jayway.jsonpath:json-path")
 }
 
 apply plugin: 'jacoco'
