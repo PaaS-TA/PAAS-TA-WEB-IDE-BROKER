@@ -4,11 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * DELIVERY-PIPELINE-SERVICE-BROKER
- *
- * Created by user on 2017-10-23.
- */
 @Configuration
 public class RestTemplateConfig {
 

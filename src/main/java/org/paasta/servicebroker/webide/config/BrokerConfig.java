@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 /**
- * Force the base spring boot packages to be searched for dependencies.
+ * 기본 Spring boot packages의 component 검색하고,
+ * jpa사용을 위해서 @EntityScan, @EnableJpaRepositories를 추가 한다.
  *
- * @author sgreenberg
- *
+ * @author sjchoi
+ * @since 2018.08.14
+ * @version 1.0
  */
 
 @Configuration

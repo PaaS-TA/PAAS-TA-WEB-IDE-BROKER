@@ -5,7 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by sjchoi on 2018-08-17
+ * Web-Ide 서비스 관련 에러 Exception 클래스
+ *
+ * @author sjchoi
+ * @since 2018.08.14
  */
 
 @Repository
