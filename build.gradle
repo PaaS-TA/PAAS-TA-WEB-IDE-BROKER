@@ -15,7 +15,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-//apply plugin: 'war'
+apply plugin: 'war'
 
 ext {
   springBootCfServiceBrokerVersion = "2.4.0"
@@ -23,10 +23,10 @@ ext {
   hibernateValidatorVersion = '5.1.0.Final'
   jsonPathVersion = '0.9.1'
 }
-
-jar{
-    baseName = 'delivery-pipeline-service-broker'
-}
+//
+//jar{
+//    baseName = 'delivery-pipeline-service-broker'
+//}
 
 repositories {
     flatDir {
@@ -41,8 +41,8 @@ configurations {
 }
 
 dependencies {
-    compile files('libs/openpaas-service-java-broker.jar')
-//    compile(name: 'openpaas-service-java-broker')
+    
+    compile(name: 'openpaas-service-java-broker')
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-security")

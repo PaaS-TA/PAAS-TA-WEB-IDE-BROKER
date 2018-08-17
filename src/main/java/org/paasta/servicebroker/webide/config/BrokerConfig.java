@@ -7,18 +7,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 /**
- * 기본 Spring boot packages의 component 검색하고,
- * jpa사용을 위해서 @EntityScan, @EnableJpaRepositories를 추가
+ * Force the base spring boot packages to be searched for dependencies.
  *
- * @author sjchoi
- * @since 2018.08.14
- * @version 1.0
+ * @author sgreenberg
+ *
  */
 
 @Configuration
 @EnableJpaRepositories("org.paasta.servicebroker.webide.repo")
-@EntityScan(value = "org.openpaas.servicebroker.webide.model")
-@ComponentScan(basePackages = { "org.openpaas.servicebroker", "org.openpaas.servicebroker"})
+@EntityScan(value = "org.paasta.servicebroker.webide.model")
+@ComponentScan(basePackages = { "org.paasta.servicebroker", "org.openpaas.servicebroker"})
 public class BrokerConfig {
-
 }

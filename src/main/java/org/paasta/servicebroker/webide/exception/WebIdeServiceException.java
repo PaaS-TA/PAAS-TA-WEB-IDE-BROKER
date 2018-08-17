@@ -4,25 +4,22 @@ import org.openpaas.servicebroker.exception.ServiceBrokerException;
 
 
 /**
- * Web-Ide 서비스 관련 에러 Exception 클래스
+ * Exception thrown when issues with the underlying mongo service occur.
+ * NOTE: com.mongodb.MongoException is a runtime exception and therefore we 
+ * want to have to handle the issue.
+ * 
+ * @author sgreenberg@gopivotal.com
  *
- * @author sjchoi
- * @since 2018.08.14
  */
 public class WebIdeServiceException extends ServiceBrokerException {
 
 	private static final long serialVersionUID = 8667141725171626000L;
 
-	public WebIdeServiceException(String message){
+	public WebIdeServiceException(String message) {
 		super(message);
 	}
-
-	public WebIdeServiceException(String message,Throwable cause){
-		super(message,cause);
-	}
-
-	public WebIdeServiceException(Throwable cause){
-		super(cause);
+	public WebIdeServiceException(String message, Throwable cause) {
+		super(message, cause);
 	}
 	
 }
