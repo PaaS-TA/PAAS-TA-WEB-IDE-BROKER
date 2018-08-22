@@ -1,5 +1,6 @@
 package org.paasta.servicebroker.webide.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.openpaas.servicebroker.model.ServiceInstance;
 
 import javax.persistence.Column;
@@ -7,54 +8,74 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-
-/**
- * Created by Mingu on 2017-05-10.
- */
+@JsonAutoDetect(
+        getterVisibility = JsonAutoDetect.Visibility.NONE
+)
 @Entity
-@Table(name = "service_instance")
+@Table(name = "web_ide_info")
 public class JpaServiceInstance {
+
     @Id
-    @Column(name = "service_instance_id")
-    private String serviceInstanceId;
-    @Column(name = "service_id")
-    private String serviceDefinitionId;
-    @Column(name = "plan_id")
-    private String planId;
-    @Column(name = "organization_guid")
-    private String organizationGuid;
-    @Column(name = "space_guid")
-    private String spaceGuid;
     @Column(name = "dashboard_url")
     private String dashboardUrl;
 
-    public JpaServiceInstance() { }
+    @Column(name = "use_yn")
+    private String useYn;
 
-    public JpaServiceInstance(ServiceInstance serviceInstance) {
-        this.serviceInstanceId = serviceInstance.getServiceInstanceId();
-        this.serviceDefinitionId = serviceInstance.getServiceDefinitionId();
-        this.planId = serviceInstance.getPlanId();
-        this.organizationGuid = serviceInstance.getOrganizationGuid();
-        this.spaceGuid = serviceInstance.getSpaceGuid();
-        this.dashboardUrl = serviceInstance.getDashboardUrl();
+    @Column(name = "user_id")
+    private String userId;
 
-    }
+    @Column(name = "plan_id")
+    private String planId;
 
-    public String getServiceInstanceId() {
-        return serviceInstanceId;
-    }
+    @Column(name = "service_id")
+    private String serviceDefinitionId;
 
-    public void setServiceInstanceId(String serviceInstanceId) {
-        this.serviceInstanceId = serviceInstanceId;
-    }
+    @Column(name = "service_instance_id")
+    private String serviceInstanceId;
 
-    public String getServiceDefinitionId() {
-        return serviceDefinitionId;
-    }
+    @Column(name = "space_guid")
+    private String spaceGuid;
 
-    public void setServiceDefinitionId(String serviceDefinitionId) {
+    @Column(name = "organization_guid")
+    private String organizationGuid;
+
+
+    public JpaServiceInstance(ServiceInstance serviceInstance) { }
+
+    public JpaServiceInstance(String dashboardUrl, String useYn, String userId, String planId, String serviceDefinitionId, String serviceInstanceId, String spaceGuid, String organizationGuid) {
+        this.dashboardUrl = dashboardUrl;
+        this.useYn = useYn;
+        this.userId = userId;
+        this.planId = planId;
         this.serviceDefinitionId = serviceDefinitionId;
+        this.serviceInstanceId = serviceInstanceId;
+        this.spaceGuid = spaceGuid;
+        this.organizationGuid = organizationGuid;
+    }
+
+    public String getDashboardUrl() {
+        return dashboardUrl;
+    }
+
+    public void setDashboardUrl(String dashboardUrl) {
+        this.dashboardUrl = dashboardUrl;
+    }
+
+    public String getUseYn() {
+        return useYn;
+    }
+
+    public void setUseYn(String useYn) {
+        this.useYn = useYn;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getPlanId() {
@@ -65,12 +86,20 @@ public class JpaServiceInstance {
         this.planId = planId;
     }
 
-    public String getOrganizationGuid() {
-        return organizationGuid;
+    public String getServiceDefinitionId() {
+        return serviceDefinitionId;
     }
 
-    public void setOrganizationGuid(String organizationGuid) {
-        this.organizationGuid = organizationGuid;
+    public void setServiceDefinitionId(String serviceDefinitionId) {
+        this.serviceDefinitionId = serviceDefinitionId;
+    }
+
+    public String getServiceInstanceId() {
+        return serviceInstanceId;
+    }
+
+    public void setServiceInstanceId(String serviceInstanceId) {
+        this.serviceInstanceId = serviceInstanceId;
     }
 
     public String getSpaceGuid() {
@@ -81,11 +110,11 @@ public class JpaServiceInstance {
         this.spaceGuid = spaceGuid;
     }
 
-    public String getDashboardUrl() {
-        return dashboardUrl;
+    public String getOrganizationGuid() {
+        return organizationGuid;
     }
 
-    public void setDashboardUrl(String dashboardUrl) {
-        this.dashboardUrl = dashboardUrl;
+    public void setOrganizationGuid(String organizationGuid) {
+        this.organizationGuid = organizationGuid;
     }
 }
