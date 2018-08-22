@@ -12,10 +12,18 @@ import org.openpaas.servicebroker.model.UpdateServiceInstanceRequest;
 import org.openpaas.servicebroker.service.ServiceInstanceService;
 import org.paasta.servicebroker.webide.exception.WebIdeServiceException;
 
+import org.paasta.servicebroker.webide.model.JpaServiceInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -36,6 +44,13 @@ public class WebIdeServiceInstanceService implements ServiceInstanceService {
         System.out.printf("WebIdeServiceInstanceService CLASS createServiceInstance");
         logger.debug("WebIdeServiceInstanceService CLASS createServiceInstance");
 
+        logger.info(request.getServiceDefinitionId());
+        logger.info(request.getPlanId());
+        logger.info(request.getOrganizationGuid());
+        logger.info(request.getSpaceGuid());
+        logger.info(request.getServiceInstanceId());
+        logger.info(request.getParameters().toString());
+
         // 서비스 인스턴스 체크
         ServiceInstance serviceInstance = webIdeAdminService.findById(request.getServiceInstanceId());
 
@@ -51,10 +66,26 @@ public class WebIdeServiceInstanceService implements ServiceInstanceService {
             throw new ServiceBrokerException("This organization already has one or more service instances.");
         }
 
-        // ServiceInstance 정보를 저장
-        webIdeAdminService.save(instance);
+        List<JpaServiceInstance> jpaServiceInstanceList =  webIdeAdminService.findByuseYn("N");
 
-        return instance;
+        if (jpaServiceInstanceList == null || jpaServiceInstanceList.size() == 0) {
+            logger.debug("This organization not any more service instances.", request.getServiceInstanceId());
+            throw new ServiceBrokerException("This organization already has one or more service instances.");
+        }
+
+        ServiceInstance result = new ServiceInstance(request).withDashboardUrl(jpaServiceInstanceList.get(0).getDashboardUrl());
+
+        logger.info("1 " + result.getDashboardUrl());
+        logger.info("2 " + result.getOrganizationGuid());
+        logger.info("3 " + result.getPlanId());
+        logger.info("4 " + result.getServiceDefinitionId());
+        logger.info("5 " + result.getSpaceGuid());
+        logger.info("6 " + result.getServiceInstanceId());
+
+        // ServiceInstance 정보를 저장
+        webIdeAdminService.save(result);
+
+        return result;
     }
 
 

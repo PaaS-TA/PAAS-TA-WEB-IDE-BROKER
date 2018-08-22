@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 
 /**
  * WebIdeAdminService Property
@@ -55,6 +57,11 @@ public class WebIdeAdminService {
                 newJpaServiceInstance.getSpaceGuid()).withServiceInstanceId(newJpaServiceInstance.getServiceInstanceId()));
     }
 
+    public List<JpaServiceInstance> findByuseYn(String use_yn) {
+        List<JpaServiceInstance> newJpaServiceInstance = jpaServiceInstanceRepository.findByUseYn(use_yn);
+        return newJpaServiceInstance;
+    }
+
     public ServiceInstance findByOrganizationGuid(String id) {
         JpaServiceInstance newJpaServiceInstance = jpaServiceInstanceRepository.findByOrganizationGuid(id);
 
@@ -77,13 +84,9 @@ public class WebIdeAdminService {
 
     public void save(ServiceInstance serviceInstance) throws WebIdeServiceException {
         try {
-            serviceInstance.getServiceDefinitionId();
-            serviceInstance.getPlanId();
-            serviceInstance.getDashboardUrl();
-            serviceInstance.getSpaceGuid();
-            serviceInstance.getOrganizationGuid();
-            serviceInstance.getServiceInstanceId();
-            jpaServiceInstanceRepository.save(new JpaServiceInstance(serviceInstance));
+            JpaServiceInstance jpaServiceInstance = new JpaServiceInstance(serviceInstance);
+            jpaServiceInstance.setUseYn("Y");
+            jpaServiceInstanceRepository.save(jpaServiceInstance);
         } catch (Exception e) {
             throw handleException(e);
         }

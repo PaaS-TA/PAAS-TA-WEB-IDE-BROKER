@@ -1,6 +1,5 @@
 package org.paasta.servicebroker.webide.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.openpaas.servicebroker.model.ServiceInstance;
 
 import javax.persistence.Column;
@@ -8,9 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@JsonAutoDetect(
-        getterVisibility = JsonAutoDetect.Visibility.NONE
-)
+
 @Entity
 @Table(name = "web_ide_info")
 public class JpaServiceInstance {
@@ -40,19 +37,18 @@ public class JpaServiceInstance {
     @Column(name = "organization_guid")
     private String organizationGuid;
 
-
-    public JpaServiceInstance(ServiceInstance serviceInstance) { }
-
-    public JpaServiceInstance(String dashboardUrl, String useYn, String userId, String planId, String serviceDefinitionId, String serviceInstanceId, String spaceGuid, String organizationGuid) {
-        this.dashboardUrl = dashboardUrl;
-        this.useYn = useYn;
-        this.userId = userId;
-        this.planId = planId;
-        this.serviceDefinitionId = serviceDefinitionId;
-        this.serviceInstanceId = serviceInstanceId;
-        this.spaceGuid = spaceGuid;
-        this.organizationGuid = organizationGuid;
+    public JpaServiceInstance() {
     }
+
+    public JpaServiceInstance(ServiceInstance serviceInstance) {
+        this.dashboardUrl = serviceInstance.getDashboardUrl();
+        this.planId = serviceInstance.getPlanId();
+        this.serviceDefinitionId = serviceInstance.getServiceDefinitionId();
+        this.serviceInstanceId = serviceInstance.getServiceInstanceId();
+        this.spaceGuid = serviceInstance.getSpaceGuid();
+        this.organizationGuid = serviceInstance.getOrganizationGuid();
+    }
+
 
     public String getDashboardUrl() {
         return dashboardUrl;
