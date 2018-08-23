@@ -69,8 +69,8 @@ public class WebIdeServiceInstanceService implements ServiceInstanceService {
         List<JpaServiceInstance> jpaServiceInstanceList =  webIdeAdminService.findByuseYn("N");
 
         if (jpaServiceInstanceList == null || jpaServiceInstanceList.size() == 0) {
-            logger.debug("This organization not any more service instances.", request.getServiceInstanceId());
-            throw new ServiceBrokerException("This organization already has one or more service instances.");
+            logger.debug("This organization not anymore service instances.", request.getServiceInstanceId());
+            throw new ServiceBrokerException("This organization not anymore service instances");
         }
 
         ServiceInstance result = new ServiceInstance(request).withDashboardUrl(jpaServiceInstanceList.get(0).getDashboardUrl());
