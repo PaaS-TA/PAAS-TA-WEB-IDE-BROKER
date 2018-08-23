@@ -22,12 +22,12 @@ public class WebIdeServiceInstanceBindingService implements ServiceInstanceBindi
 
 	private static final Logger logger = LoggerFactory.getLogger(WebIdeServiceInstanceBindingService.class);
 	@Autowired
-	private WebIdeAdminService deliveryPipelineAdminService;
+	private WebIdeAdminService webIdeAdminService;
 	
 	
 	@Autowired
-	public WebIdeServiceInstanceBindingService(WebIdeAdminService deliveryPipelineAdminService) {
-		this.deliveryPipelineAdminService = deliveryPipelineAdminService;
+	public WebIdeServiceInstanceBindingService(WebIdeAdminService webIdeAdminService) {
+		this.webIdeAdminService = webIdeAdminService;
 	}
 	
 	@Override

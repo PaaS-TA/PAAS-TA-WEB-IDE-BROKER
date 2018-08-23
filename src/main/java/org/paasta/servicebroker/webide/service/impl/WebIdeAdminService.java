@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
 
 import java.util.List;
 
@@ -27,8 +27,6 @@ public class WebIdeAdminService {
 
     private Logger logger = LoggerFactory.getLogger(WebIdeAdminService.class);
 
-//    @Value("${paasta.webide.url}")
-//    private String PaastaWebideUrl;
     @Value("${paasta.webide.username}")
     String  PaastaWebideUsername;
     @Value("${paasta.webide.password}")
@@ -41,10 +39,6 @@ public class WebIdeAdminService {
     @Autowired
     private JpaServiceInstanceRepository jpaServiceInstanceRepository;
 
-    @Autowired
-    RestTemplate restTemplate;
-
-    private String authorization;
 
     public ServiceInstance findById(String id) {
         JpaServiceInstance newJpaServiceInstance = jpaServiceInstanceRepository.findOne(id);
