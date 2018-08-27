@@ -1,6 +1,7 @@
 package org.paasta.servicebroker.webide.service.impl;
 
 import org.openpaas.servicebroker.model.CreateServiceInstanceRequest;
+import org.openpaas.servicebroker.model.DeleteServiceInstanceRequest;
 import org.openpaas.servicebroker.model.ServiceInstance;
 import org.paasta.servicebroker.webide.exception.WebIdeServiceException;
 import org.paasta.servicebroker.webide.model.JpaServiceInstance;
@@ -19,7 +20,7 @@ import java.util.List;
  * WebIdeAdminService Property
  *
  * @author sjchoi
- * @since 2018.08.14
+ * @since 2018.08.21
  * @version 1.0
  */
 @Service
@@ -41,7 +42,7 @@ public class WebIdeAdminService {
 
 
     public ServiceInstance findById(String id) {
-        JpaServiceInstance newJpaServiceInstance = jpaServiceInstanceRepository.findOne(id);
+        JpaServiceInstance newJpaServiceInstance = jpaServiceInstanceRepository.findByServiceInstanceId(id);
 
         if (newJpaServiceInstance == null) return null;
 
@@ -51,10 +52,23 @@ public class WebIdeAdminService {
                 newJpaServiceInstance.getSpaceGuid()).withServiceInstanceId(newJpaServiceInstance.getServiceInstanceId()));
     }
 
+
+    public ServiceInstance findByIdDelete(String id) {
+        JpaServiceInstance newJpaServiceInstance = jpaServiceInstanceRepository.findByServiceInstanceId(id);
+
+        if (newJpaServiceInstance == null) return null;
+
+        return new ServiceInstance(new DeleteServiceInstanceRequest(newJpaServiceInstance.getServiceInstanceId(),
+                newJpaServiceInstance.getServiceDefinitionId(),
+                newJpaServiceInstance.getPlanId()));
+    }
+
+
     public List<JpaServiceInstance> findByuseYn(String use_yn) {
         List<JpaServiceInstance> newJpaServiceInstance = jpaServiceInstanceRepository.findByUseYn(use_yn);
         return newJpaServiceInstance;
     }
+
 
     public ServiceInstance findByOrganizationGuid(String id) {
         JpaServiceInstance newJpaServiceInstance = jpaServiceInstanceRepository.findByOrganizationGuid(id);
@@ -68,13 +82,16 @@ public class WebIdeAdminService {
     }
 
 
-    public void delete(String id) throws WebIdeServiceException {
+    public void delete(ServiceInstance serviceInstance) throws WebIdeServiceException {
         try {
-            jpaServiceInstanceRepository.delete(id);
+            JpaServiceInstance jpaServiceInstance = new JpaServiceInstance(serviceInstance);
+            jpaServiceInstance = jpaServiceInstanceRepository.findByServiceInstanceId(jpaServiceInstance.getServiceInstanceId());
+            jpaServiceInstanceRepository.delete(jpaServiceInstance);
         } catch (Exception e) {
             throw handleException(e);
         }
     }
+
 
     public void save(ServiceInstance serviceInstance) throws WebIdeServiceException {
         try {

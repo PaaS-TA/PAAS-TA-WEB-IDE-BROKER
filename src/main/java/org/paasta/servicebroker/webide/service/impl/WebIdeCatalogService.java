@@ -10,7 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Mingu on 2017-06-01.
+ * WebIdeCatalogService
+ *
+ * @author sjchoi
+ * @since 2018.08.21
+ * @version 1.0
  */
 @Service
 public class WebIdeCatalogService implements CatalogService {
