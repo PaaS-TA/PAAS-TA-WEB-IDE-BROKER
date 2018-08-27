@@ -17,5 +17,8 @@ import java.util.List;
 public interface JpaServiceInstanceRepository extends JpaRepository<JpaServiceInstance, String>{
     JpaServiceInstance findByOrganizationGuid(String organizationId);
 
+    JpaServiceInstance findByServiceInstanceId(String serviceInstanceId);
+
     List<JpaServiceInstance> findByUseYn(String use_yn);
+
 }

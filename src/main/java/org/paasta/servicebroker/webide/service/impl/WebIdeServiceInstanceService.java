@@ -9,7 +9,6 @@ import org.openpaas.servicebroker.model.DeleteServiceInstanceRequest;
 import org.openpaas.servicebroker.model.ServiceInstance;
 import org.openpaas.servicebroker.model.UpdateServiceInstanceRequest;
 import org.openpaas.servicebroker.service.ServiceInstanceService;
-import org.paasta.servicebroker.webide.exception.WebIdeServiceException;
 import org.paasta.servicebroker.webide.model.JpaServiceInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +20,11 @@ import java.util.List;
 
 
 /**
- * @author whalsrn0710@bluedigm.com
+ * 이 서비스 브로커에서 접근하는 WebIde 대한 서비스를 위한 클래스
+ *
+ * @author sjchoi
+ * @since 2018.08.21
+ * @version 1.0
  */
 @Service
 public class WebIdeServiceInstanceService implements ServiceInstanceService {
@@ -32,19 +35,25 @@ public class WebIdeServiceInstanceService implements ServiceInstanceService {
     @Autowired
     private WebIdeAdminService webIdeAdminService;
 
+
+    /**
+     * 1.서비스 인스턴스 유뮤를 확인
+     * 2.서비스 인스턴스 guid를 확인
+     * 3.서비스 인스턴스를 생성 및 저장
+     * @author sjchoi
+     * @since 2018.08.23
+     */
     @Override
     public ServiceInstance createServiceInstance(CreateServiceInstanceRequest request)
             throws ServiceInstanceExistsException, ServiceBrokerException {
         logger.debug("WebIdeServiceInstanceService CLASS createServiceInstance");
 
-        // 서비스 인스턴스 유무 확인
         ServiceInstance serviceInstance = webIdeAdminService.findById(request.getServiceInstanceId());
 
         if (serviceInstance != null) {
             throw new ServiceInstanceExistsException(new ServiceInstance(request));
         }
 
-        // 서비스 인스턴스 Guid 확인
         ServiceInstance instance = webIdeAdminService.findByOrganizationGuid(request.getOrganizationGuid());
 
         if (instance != null) {
@@ -80,15 +89,27 @@ public class WebIdeServiceInstanceService implements ServiceInstanceService {
         return webIdeAdminService.findById(id);
     }
 
-
+    /**
+     * 1. 조회된 서비스 인스턴스가 없을 경우 예외처리
+     * 2. 조회된 서비스 인스턴스 정보로 해당 서비스 인스턴스를 삭제
+     * @author sjchoi
+     * @since 2018.08.24
+     */
     @Override
-    public ServiceInstance deleteServiceInstance(DeleteServiceInstanceRequest request) throws WebIdeServiceException {
+    public ServiceInstance deleteServiceInstance(DeleteServiceInstanceRequest request)
+            throws ServiceBrokerException {
+        logger.debug("WebIdeServiceInstanceService CLASS deleteServiceInstance");
+        logger.info("req {}", request);
 
-        ServiceInstance instance = webIdeAdminService.findById(request.getServiceInstanceId());
+        logger.info("1" +  request.getServiceInstanceId());
+        logger.info("2" +  request.getServiceId());
+        logger.info("3" +  request.getPlanId());
+
+        ServiceInstance instance = webIdeAdminService.findByIdDelete(request.getServiceInstanceId());
 
         if (instance == null) return null;
-        // 조회된 ServiceInstance정보로 해당 ServiceInstance정보를 삭제
-        webIdeAdminService.delete(instance.getServiceInstanceId());
+
+        webIdeAdminService.delete(instance);
 
         return instance;
     }
@@ -98,6 +119,5 @@ public class WebIdeServiceInstanceService implements ServiceInstanceService {
             throws ServiceInstanceUpdateNotSupportedException, ServiceBrokerException, ServiceInstanceDoesNotExistException {
         throw new ServiceBrokerException("Not Supported");
     }
-
 
 }
