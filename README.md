@@ -3,7 +3,7 @@ WEB IDE Service Broker
 Web-Ide 서비스 브로커
 
 ##### 가능한 명령 목록 (로컬 환경)
-- Catalog 조회 : http://localhost:8888/v2/catalog
+- Catalog 조회 : http://localhost:8080/v2/catalog
   - Method : GET 
   - Header
     > Authorization : Bearer type \
@@ -12,7 +12,7 @@ Web-Ide 서비스 브로커
   - Body : None 
   - Parameters : None
 
-- 서비스 인스턴스 생성 : http://localhost:8888/v2/service_instances/[new-instance-name]
+- 서비스 인스턴스 생성 : http://localhost:8080/v2/service_instances/[new-instance-name]
   - Method : PUT 
   - Header
     > Authorization : Bearer type \
