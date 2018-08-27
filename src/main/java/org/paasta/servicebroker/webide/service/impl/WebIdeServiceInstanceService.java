@@ -77,7 +77,6 @@ public class WebIdeServiceInstanceService implements ServiceInstanceService {
         logger.info("5 " + result.getSpaceGuid());
         logger.info("6 " + result.getServiceInstanceId());
 
-        // 서비스인스턴스 정보를 저장
         webIdeAdminService.save(result);
 
         return result;
@@ -98,15 +97,8 @@ public class WebIdeServiceInstanceService implements ServiceInstanceService {
     @Override
     public ServiceInstance deleteServiceInstance(DeleteServiceInstanceRequest request)
             throws ServiceBrokerException {
-        logger.debug("WebIdeServiceInstanceService CLASS deleteServiceInstance");
-        logger.info("req {}", request);
-
-        logger.info("1" +  request.getServiceInstanceId());
-        logger.info("2" +  request.getServiceId());
-        logger.info("3" +  request.getPlanId());
 
         ServiceInstance instance = webIdeAdminService.findByIdDelete(request.getServiceInstanceId());
-
         if (instance == null) return null;
 
         webIdeAdminService.delete(instance);
