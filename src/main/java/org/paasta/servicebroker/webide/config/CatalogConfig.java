@@ -47,17 +47,17 @@ public class CatalogConfig {
     @Value("${serviceDefinition.plan1.type}")
     String SERVICEDEFINITION_PLAN1_TYPE;
 
-    @Value("${serviceDefinition.plan2.id}")
-    String SERVICEDEFINITION_PLAN2_ID;
-
-    @Value("${serviceDefinition.plan2.name}")
-    String SERVICEDEFINITION_PLAN2_NAME;
-
-    @Value("${serviceDefinition.plan2.desc}")
-    String SERVICEDEFINITION_PLAN2_DESC;
-
-    @Value("${serviceDefinition.plan2.type}")
-    String SERVICEDEFINITION_PLAN2_TYPE;
+//    @Value("${serviceDefinition.plan2.id}")
+//    String SERVICEDEFINITION_PLAN2_ID;
+//
+//    @Value("${serviceDefinition.plan2.name}")
+//    String SERVICEDEFINITION_PLAN2_NAME;
+//
+//    @Value("${serviceDefinition.plan2.desc}")
+//    String SERVICEDEFINITION_PLAN2_DESC;
+//
+//    @Value("${serviceDefinition.plan2.type}")
+//    String SERVICEDEFINITION_PLAN2_TYPE;
 
 
 	@Bean
@@ -81,13 +81,9 @@ public class CatalogConfig {
 						Arrays.asList(
 								new Plan(SERVICEDEFINITION_PLAN1_ID,
 										SERVICEDEFINITION_PLAN1_NAME,
-										SERVICEDEFINITION_PLAN2_DESC,
-										getPlanMetadata(SERVICEDEFINITION_PLAN1_TYPE)),
-								new Plan(SERVICEDEFINITION_PLAN2_ID,
-										SERVICEDEFINITION_PLAN2_NAME,
-										SERVICEDEFINITION_PLAN2_DESC,
-										getPlanMetadata(SERVICEDEFINITION_PLAN2_TYPE))),
-						Arrays.asList(SERVICEDEFINITION_PLAN1_NAME, SERVICEDEFINITION_PLAN2_NAME),
+										SERVICEDEFINITION_PLAN1_DESC,
+										getPlanMetadata(SERVICEDEFINITION_PLAN1_TYPE))),
+						Arrays.asList(SERVICEDEFINITION_PLAN1_NAME),
 						getServiceDefinitionMetadata(),
 						null,
 						null)));
