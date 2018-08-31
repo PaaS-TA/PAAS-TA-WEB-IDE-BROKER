@@ -15,7 +15,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
-//apply plugin: 'jar'
+apply plugin: 'war'
 
 ext {
   springBootCfServiceBrokerVersion = "2.4.0"
@@ -24,8 +24,8 @@ ext {
   jsonPathVersion = '0.9.1'
 }
 
-jar{
-    baseName = 'delivery-pipeline-service-broker'
+war{
+    baseName = 'web-ide-service-broker'
 }
 
 repositories {
@@ -49,9 +49,6 @@ dependencies {
     compile("org.apache.commons:commons-dbcp2")
     compile('org.apache.tomcat.embed:tomcat-embed-jasper')
     compile("org.springframework:spring-jdbc:4.0.0.M3")
-
-
-
 
     runtime("mysql:mysql-connector-java:5.1.27")
 
