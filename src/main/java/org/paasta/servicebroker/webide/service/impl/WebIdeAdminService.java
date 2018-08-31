@@ -4,14 +4,14 @@ import org.openpaas.servicebroker.model.CreateServiceInstanceRequest;
 import org.openpaas.servicebroker.model.DeleteServiceInstanceRequest;
 import org.openpaas.servicebroker.model.ServiceInstance;
 import org.paasta.servicebroker.webide.exception.WebIdeServiceException;
+import org.paasta.servicebroker.webide.model.JpaServiceList;
 import org.paasta.servicebroker.webide.model.JpaServiceInstance;
 import org.paasta.servicebroker.webide.repo.JpaServiceInstanceRepository;
+import org.paasta.servicebroker.webide.repo.JpaServiceListRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 
@@ -20,8 +20,8 @@ import java.util.List;
  * WebIdeAdminService Property
  *
  * @author sjchoi
- * @since 2018.08.21
  * @version 1.0
+ * @since 2018.08.21
  */
 @Service
 public class WebIdeAdminService {
@@ -36,6 +36,9 @@ public class WebIdeAdminService {
     @Autowired
     private JpaServiceInstanceRepository jpaServiceInstanceRepository;
 
+
+    @Autowired
+    private JpaServiceListRepository jpaServiceListRepository;
 
     public ServiceInstance findById(String id) {
         JpaServiceInstance newJpaServiceInstance = jpaServiceInstanceRepository.findByServiceInstanceId(id);
@@ -78,18 +81,18 @@ public class WebIdeAdminService {
     }
 
 
-    public void delete(ServiceInstance instance) throws WebIdeServiceException {
+    public void delete(String serviceInstanceId) throws WebIdeServiceException {
         try {
-            logger.info("SJCHOI ::: DELETE DONG MUNGCHUNG 2-2");
-            JpaServiceInstance jpaServiceInstance = new JpaServiceInstance(instance);
-            jpaServiceInstance.setUseYn("N");
-            jpaServiceInstance.setUserId("");
-            jpaServiceInstance.setPlanId("");
-            jpaServiceInstance.setServiceInstanceId("");
-            jpaServiceInstance.setServiceDefinitionId("");
-            jpaServiceInstance.setSpaceGuid("");
-            jpaServiceInstance.setOrganizationGuid("");
-            jpaServiceInstanceRepository.save(jpaServiceInstance);
+
+
+//            jpaServiceInstance.setUseYn("N");
+//            jpaServiceInstance.setUserId("");
+//            jpaServiceInstance.setPlanId("");
+//            jpaServiceInstance.setServiceInstanceId("");
+//            jpaServiceInstance.setServiceDefinitionId("");
+//            jpaServiceInstance.setSpaceGuid("");
+//            jpaServiceInstance.setOrganizationGuid("");
+            jpaServiceInstanceRepository.delete(serviceInstanceId);
         } catch (Exception e) {
             throw handleException(e);
         }
@@ -99,13 +102,22 @@ public class WebIdeAdminService {
     public void save(ServiceInstance serviceInstance) throws WebIdeServiceException {
         try {
             JpaServiceInstance jpaServiceInstance = new JpaServiceInstance(serviceInstance);
-            jpaServiceInstance.setUseYn("Y");
             jpaServiceInstanceRepository.save(jpaServiceInstance);
         } catch (Exception e) {
+            e.printStackTrace();
             throw handleException(e);
         }
     }
 
+
+    public JpaServiceInstance findByDashboardUrl(String dashboardUrl){
+        return jpaServiceInstanceRepository.findByDashboardUrl(dashboardUrl);
+    }
+
+    public List<JpaServiceList> findAllDashboardUrls() {
+        List<JpaServiceList> jpaServiceIists = jpaServiceListRepository.findAll();
+        return jpaServiceIists;
+    }
 
     private WebIdeServiceException handleException(Exception e) {
         logger.warn(e.getLocalizedMessage(), e);

@@ -13,6 +13,9 @@ import javax.persistence.Table;
 public class JpaServiceInstance {
 
     @Id
+    @Column(name = "service_instance_id")
+    private String serviceInstanceId;
+
     @Column(name = "dashboard_url")
     private String dashboardUrl;
 
@@ -27,9 +30,6 @@ public class JpaServiceInstance {
 
     @Column(name = "service_id")
     private String serviceDefinitionId;
-
-    @Column(name = "service_instance_id")
-    private String serviceInstanceId;
 
     @Column(name = "space_guid")
     private String spaceGuid;

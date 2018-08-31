@@ -44,9 +44,9 @@ paasta:
 ci:
   server:
     shared:
-      urls: '["10.10.10.1","10.10.10.2","10.10.10.2"]'
+      urls: '["10.10.10.1","10.10.10.2"]'
     dedicated:
-      urls: '["10.10.10.1","10.10.10.2","10.10.10.2"]'
+      urls: '["10.10.10.1","10.10.10.2"]'
 
 
 serviceDefinition:
@@ -60,8 +60,3 @@ serviceDefinition:
     name: delivery-pipeline-shared
     desc: "This is a shared service plan. All services are created equally."
     type: A
-  plan2:
-    id: a5930564-6212-11e7-907b-b6006ad3dp24
-    name: delivery-pipeline-dedicated
-    desc: "This is a dedicated service plan. All services are created equally."
-    type: B

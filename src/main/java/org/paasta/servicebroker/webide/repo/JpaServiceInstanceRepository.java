@@ -21,4 +21,9 @@ public interface JpaServiceInstanceRepository extends JpaRepository<JpaServiceIn
 
     List<JpaServiceInstance> findByUseYn(String use_yn);
 
+    JpaServiceInstance findByDashboardUrl(String dashboardurl);
+
+    void deleteByServiceInstanceId(String id);
+
+
 }
