@@ -97,12 +97,11 @@ public class WebIdeServiceInstanceService implements ServiceInstanceService {
     @Override
     public ServiceInstance deleteServiceInstance(DeleteServiceInstanceRequest request)
             throws ServiceBrokerException {
-
+        logger.info("SJCHOI ::: DELETE DONG MUNGCHUNG 2 - 0");
         ServiceInstance instance = webIdeAdminService.findByIdDelete(request.getServiceInstanceId());
         if (instance == null) return null;
-
-        webIdeAdminService.delete(instance);
-
+        logger.info("SJCHOI ::: DELETE DONG MUNGCHUNG 2 - 1");
+          webIdeAdminService.delete(instance);
         return instance;
     }
 

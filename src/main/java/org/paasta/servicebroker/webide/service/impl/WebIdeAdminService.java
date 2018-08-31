@@ -28,10 +28,6 @@ public class WebIdeAdminService {
 
     private Logger logger = LoggerFactory.getLogger(WebIdeAdminService.class);
 
-    @Value("${paasta.webide.username}")
-    String  PaastaWebideUsername;
-    @Value("${paasta.webide.password}")
-    String  PaastaWebidePassword;
 
     private static final String AUTHORIZATION_HEADER_KEY = "Authorization";
     private static final String CONTENT_TYPE_HEADER_KEY = "Content-Type";
@@ -82,11 +78,18 @@ public class WebIdeAdminService {
     }
 
 
-    public void delete(ServiceInstance serviceInstance) throws WebIdeServiceException {
+    public void delete(ServiceInstance instance) throws WebIdeServiceException {
         try {
-            JpaServiceInstance jpaServiceInstance = new JpaServiceInstance(serviceInstance);
-            jpaServiceInstance = jpaServiceInstanceRepository.findByServiceInstanceId(jpaServiceInstance.getServiceInstanceId());
-            jpaServiceInstanceRepository.delete(jpaServiceInstance);
+            logger.info("SJCHOI ::: DELETE DONG MUNGCHUNG 2-2");
+            JpaServiceInstance jpaServiceInstance = new JpaServiceInstance(instance);
+            jpaServiceInstance.setUseYn("N");
+            jpaServiceInstance.setUserId("");
+            jpaServiceInstance.setPlanId("");
+            jpaServiceInstance.setServiceInstanceId("");
+            jpaServiceInstance.setServiceDefinitionId("");
+            jpaServiceInstance.setSpaceGuid("");
+            jpaServiceInstance.setOrganizationGuid("");
+            jpaServiceInstanceRepository.save(jpaServiceInstance);
         } catch (Exception e) {
             throw handleException(e);
         }
