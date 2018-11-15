@@ -1,7 +1,5 @@
 package org.paasta.servicebroker.webide.model;
 
-import org.openpaas.servicebroker.model.ServiceInstance;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -22,9 +20,9 @@ public class JpaServiceList {
     public JpaServiceList() {
     }
 
-    public JpaServiceList(Integer no, String webIdeService) {
-        this.no = no;
-        this.webIdeService = webIdeService;
+    public JpaServiceList(JpaServiceList jpaServiceList ) {
+        this.no = jpaServiceList.getNo();
+        this.webIdeService = jpaServiceList.getWebIdeService();
     }
 
     public Integer getNo() {

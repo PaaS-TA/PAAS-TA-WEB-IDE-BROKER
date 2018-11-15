@@ -3,17 +3,17 @@ server:
 
 spring:
   application:
-    name: delivery-pipeline-service-broker
+    name: paasta-web-ide
   datasource:
-    url: jdbc:mysql://localhost:3306/broker?autoReconnect=true&useUnicode=true&characterEncoding=utf8
-    username: root
-    password: "!paas_ta202"
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://PAASTA-WEBIDE-DATASOURCE/webide
+    username: PAASTA-WEBIDE-DATASOURCE-USERNAME
+    password: PAASTA-WEBIDE-DATASOURCE-PASSWORD
   jpa:
     hibernate:
       ddl-auto: none
       database: mysql
       show-sql: true
-
 
 logging:
   level:
@@ -22,41 +22,25 @@ logging:
         openpaas:
           servicebroker:
             controller: INFO
-        paasta:
-          servicebroker:
-            deliverypipeline:
-              service: INFO
-
-service:
-  dashboard:
-    url: http://115.68.46.214:8080/dashboard/[SUID]/
 
 
-paasta:
-  delivery:
-    pipeline:
-      api:
-        url: http://10.30.110.42:8080
-        username:
-        password:
-
-
-ci:
-  server:
-    shared:
-      urls: '["10.10.10.1","10.10.10.2"]'
-    dedicated:
-      urls: '["10.10.10.1","10.10.10.2"]'
+webide:
+  servers: '["10.10.10.1","10.10.10.2"]'
 
 
 serviceDefinition:
-  id: af86588c-6212-11e7-907b-b6006ad3dp22
-  name: delivery-pipeline-v2
+  id: YOUR_PLAN_ID #ex)af86588c-6212-11e7-907b-b6006ad3dp22
+  name: webide
   desc: "A paasta source control service for application development.provision parameters : parameters {owner : owner}"
   bindable: false
   planupdatable: false
   plan1:
-    id: a5930564-6212-11e7-907b-b6006ad3dp23
-    name: delivery-pipeline-shared
+    id: YOUR_PLAN_ID1 #ex)a5930564-6212-11e7-907b-b6006ad3dps1
+    name: webide-shared                #플랜
     desc: "This is a shared service plan. All services are created equally."
     type: A
+  plan2:
+   id: YOUR_PLAN_ID2 #ex)a5930564-6212-11e7-907b-b6006ad3dps2
+   name: webide-dedicated
+   desc: "This is a dedicated service plan. All services are created equally."
+   type: B

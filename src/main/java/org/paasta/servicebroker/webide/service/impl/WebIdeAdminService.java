@@ -83,8 +83,6 @@ public class WebIdeAdminService {
 
     public void delete(String serviceInstanceId) throws WebIdeServiceException {
         try {
-
-
 //            jpaServiceInstance.setUseYn("N");
 //            jpaServiceInstance.setUserId("");
 //            jpaServiceInstance.setPlanId("");
@@ -109,7 +107,6 @@ public class WebIdeAdminService {
         }
     }
 
-
     public JpaServiceInstance findByDashboardUrl(String dashboardUrl){
         return jpaServiceInstanceRepository.findByDashboardUrl(dashboardUrl);
     }
@@ -119,10 +116,20 @@ public class WebIdeAdminService {
         return jpaServiceIists;
     }
 
+
     private WebIdeServiceException handleException(Exception e) {
         logger.warn(e.getLocalizedMessage(), e);
         return new WebIdeServiceException(e.getLocalizedMessage());
     }
 
+
+    public void saveInfo(JpaServiceList jpaInfo) throws WebIdeServiceException {
+        try {
+            jpaServiceListRepository.save(jpaInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw handleException(e);
+        }
+    }
 }
 
