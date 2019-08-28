@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,11 +16,18 @@ import java.util.List;
 
 
 @Configuration
+@ConfigurationProperties(prefix = "webide")
 public class InitializationConfig {
+
+
+    private List<String> servers = new ArrayList<String>();
+
+    public List<String> getServers() {
+        return this.servers;
+    }
+
     private Logger logger = LoggerFactory.getLogger(InitializationConfig.class);
 
-    @Value("${webide.servers}")
-    String SERVICE_URLS;
 
     @Autowired
     private WebIdeAdminService webIdeAdminService;
@@ -29,12 +37,9 @@ public class InitializationConfig {
 
         List<JpaServiceList> jpaServiceLists = new ArrayList<>();
 
-        String str = SERVICE_URLS.replace("[", "").replace("]", "").replace("\"", "");
-        String[] strArray = str.split(",");
-
         int i = 0;
-        for (String url : strArray) {
-            logger.info(url);
+        for (String url : servers) {
+            logger.info(url + "save");
             try {
                 url = url.trim();
                 if (url.length() > 0) {

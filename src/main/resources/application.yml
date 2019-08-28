@@ -25,7 +25,9 @@ logging:
 
 
 webide:
-  servers: '["10.10.10.1","10.10.10.2"]'
+  servers:
+    - XXX.XXX.XXX.XXX
+    - XXX.XXX.XXX.XXX
 
 
 serviceDefinition:
