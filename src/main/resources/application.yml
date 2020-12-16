@@ -1,6 +1,14 @@
 server:
   port: 8080
-
+  
+bosh:
+  client_id: admin
+  client_secret:
+  url: https://localhost:25555
+  oauth_url: https://localhost:8443
+  deployment_name: paasta-web-ide
+  instance_name: eclipse-che
+  
 spring:
   application:
     name: paasta-web-ide
@@ -46,3 +54,5 @@ serviceDefinition:
    name: webide-dedicated
    desc: "This is a dedicated service plan. All services are created equally."
    type: B
+  org_limitation: 1
+  space_limitation: 1

@@ -34,6 +34,12 @@ public class CatalogConfig {
 
     @Value("${serviceDefinition.planupdatable}")
     String SERVICEDEFINITION_PLANUPDATABLE_STRING;
+    
+    @Value("${serviceDefinition.bullet.name}")
+	String SERVICEDEFINITION_BULLET_NAME;
+
+	@Value("${serviceDefinition.bullet.desc}")
+	String SERVICEDEFINITION_BULLET_DESC;
 
     @Value("${serviceDefinition.plan1.id}")
     String SERVICEDEFINITION_PLAN1_ID;
@@ -156,14 +162,7 @@ public class CatalogConfig {
 	 * @return List:String
 	 */
 	private List<String> getBullets(String planType) {
-		if (planType.equals("A")) {
-			return Arrays.asList("WEB-IDE shared build server use",
-					"WEB-IDE build service using a shared server");
-		} else if (planType.equals("B")) {
-			return Arrays.asList("WEB-IDE dedicated build server use",
-					"WEB-IDE build service using a dedicated server");
-		}
-		return Arrays.asList("WEB-IDE shared build server use",
-				"WEB-IDE build service using a shared server");
+		return Arrays.asList(SERVICEDEFINITION_BULLET_NAME,
+				SERVICEDEFINITION_BULLET_DESC);
 	}
 }
