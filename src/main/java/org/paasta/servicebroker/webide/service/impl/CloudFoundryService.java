@@ -74,14 +74,18 @@ public class CloudFoundryService {
             UpdateSecurityGroup(securityGroups, url, resources);
             return;
         }
-        securityGroups.create(CreateSecurityGroupRequest.builder()
-                .name(instance_name + "_" + space_id)
-                .rule(RuleEntity.builder()
-                        .protocol(Protocol.ALL)
-                        .destination(url)
-                        .build())
-                .spaceId(space_id)
-                .build()).block();
+        try {
+           securityGroups.create(CreateSecurityGroupRequest.builder()
+                 .name(instance_name + "_" + space_id)
+                 .rule(RuleEntity.builder()
+                       .protocol(Protocol.ALL)
+                       .destination(url)
+                       .build())
+                 .spaceId(space_id)
+                 .build()).block();
+        } catch(Exception e) {
+           e.printStackTrace();
+        }
     }
 
     public void UpdateSecurityGroup(SecurityGroups securityGroups, String url, List<SecurityGroupResource> resources){
