@@ -72,7 +72,7 @@ public class InitializationConfig {
 
         int i = 0;
         for (String url : servers) {
-            logger.info(url + "save");
+            logger.info(url + " save");
             try {
                 url = url.trim();
                 if (url.length() > 0) {
@@ -91,7 +91,14 @@ public class InitializationConfig {
         List<DeploymentInstance> deploymentInstanceList = onDemandDeploymentService.getVmInstance(deploymentName, instanceName);
 //        List<DeploymentInstance> startedDeploymentInstances = deploymentInstanceList.stream().filter((x) -> x.getState().equals(BoshDirector.INSTANCE_STATE_START) && x.getJobState().equals("running")).collect(Collectors.toList());
         // public ip 추가를 위한 재 배포시 모든 vm 의 jobState 상태가 running 상태가 아님, 그래서 jobState 상태는 일단 제거 
-        List<DeploymentInstance> startedDeploymentInstances = deploymentInstanceList.stream().filter((x) -> x.getState().equals(BoshDirector.INSTANCE_STATE_START)).collect(Collectors.toList());
+        //[20210216] List<DeploymentInstance> startedDeploymentInstances = deploymentInstanceList.stream().filter((x) -> x.getState().equals(BoshDirector.INSTANCE_STATE_START)).collect(Collectors.toList());
+	List<DeploymentInstance> startedDeploymentInstances = null;
+        if (deploymentInstanceList != null){
+
+            startedDeploymentInstances = deploymentInstanceList.stream().filter((x) -> x.getState().equals(BoshDirector.INSTANCE_STATE_START)).collect(Collectors.toList());
+        }else{
+            startedDeploymentInstances = new ArrayList<>();
+        }
         ListServiceInstancesResponse listServiceInstancesResponse = cloudFoundryService.getServiceList();
         
         Map<String, String> serviceInfoMap = new HashMap<String, String>();

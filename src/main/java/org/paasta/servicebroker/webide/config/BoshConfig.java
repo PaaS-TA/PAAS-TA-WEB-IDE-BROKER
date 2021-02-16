@@ -27,7 +27,7 @@ public class BoshConfig {
     @Value("${bosh.instance_name}")
     public String instance_name;
 
-//    @Value("${bosh.version}")
+    @Value("${bosh.version}")
     public String bosh_version;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BoshConfig.class);

@@ -74,6 +74,7 @@ public class CloudFoundryService {
             UpdateSecurityGroup(securityGroups, url, resources);
             return;
         }
+	try {
         securityGroups.create(CreateSecurityGroupRequest.builder()
                 .name(instance_name + "_" + space_id)
                 .rule(RuleEntity.builder()
@@ -82,6 +83,9 @@ public class CloudFoundryService {
                         .build())
                 .spaceId(space_id)
                 .build()).block();
+	}catch(Exception e){
+		logger.info(e.getMessage());
+	}
     }
 
     public void UpdateSecurityGroup(SecurityGroups securityGroups, String url, List<SecurityGroupResource> resources){
