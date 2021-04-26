@@ -13,7 +13,7 @@ spring:
   application:
     name: paasta-web-ide
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mysql://PAASTA-WEBIDE-DATASOURCE/webide
     username: PAASTA-WEBIDE-DATASOURCE-USERNAME
     password: PAASTA-WEBIDE-DATASOURCE-PASSWORD
